@@ -1,0 +1,837 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ML Tutorial}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{sklearn}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \hypertarget{primer-on-stats-and-numpy}{%
+\section{Primer on Stats and Numpy}\label{primer-on-stats-and-numpy}}
+
+    \hypertarget{random-numbers-and-vectors}{%
+\subsection{1. Random Numbers and
+Vectors}\label{random-numbers-and-vectors}}
+
+    Using \texttt{arange} to create a range:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{arr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{arr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1 2 3 4 5 6 7 8 9]
+
+    \end{Verbatim}
+
+    Then turn it into a matrix:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{mat} \PY{o}{=} \PY{n}{arr}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{mat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1 2 3]
+ [4 5 6]
+ [7 8 9]]
+
+    \end{Verbatim}
+
+    Create an array of uniformly distributed random variables:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{randlist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{randlist}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.3266449  0.5270581  0.8859421  0.35726976 0.90853515 0.62336012
+ 0.01582124 0.92943723 0.69089692 0.99732285 0.17234051 0.13713575
+ 0.93259546 0.69681816 0.06600017 0.75546305 0.75387619 0.92302454
+ 0.71152476 0.12427096 0.01988013 0.02621099 0.02830649 0.24621107
+ 0.86002795 0.53883106 0.55282198 0.84203089 0.12417332 0.27918368
+ 0.58575927 0.96959575 0.56103022 0.01864729 0.80063267 0.23297427
+ 0.8071052  0.38786064 0.86354185 0.74712164 0.55624023 0.13645523
+ 0.05991769 0.12134346 0.04455188 0.10749413 0.22570934 0.71298898
+ 0.55971698 0.01255598 0.07197428 0.96727633 0.56810046 0.20329323
+ 0.25232574 0.74382585 0.19542948 0.58135893 0.97001999 0.8468288
+ 0.23984776 0.49376971 0.61995572 0.8289809  0.15679139 0.0185762
+ 0.07002214 0.48634511 0.60632946 0.56885144 0.31736241 0.98861615
+ 0.57974522 0.38014117 0.55094822 0.74533443 0.66923289 0.26491956
+ 0.06633483 0.3700842  0.62971751 0.21017401 0.75275555 0.06653648
+ 0.2603151  0.80475456 0.19343428 0.63946088 0.52467031 0.92480797
+ 0.26329677 0.06596109 0.73506596 0.77217803 0.90781585 0.93197207
+ 0.01395157 0.23436209 0.61677836 0.94901632]
+
+    \end{Verbatim}
+
+    You can then multiply the list by a scale parameter and add a shift
+parameter to give the following random vector:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{randlist} \PY{o}{=} \PY{n}{randlist} \PY{o}{*} \PY{l+m+mi}{10} \PY{o}{+} \PY{l+m+mi}{10}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{randlist}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[13.26644902 15.27058102 18.85942099 13.5726976  19.08535151 16.23360116
+ 10.15821243 19.29437234 16.90896918 19.9732285  11.72340508 11.3713575
+ 19.32595463 16.96818161 10.66000173 17.55463053 17.53876188 19.23024536
+ 17.11524759 11.24270962 10.19880134 10.26210987 10.28306488 12.46211068
+ 18.60027949 15.38831064 15.52821979 18.42030892 11.24173315 12.79183679
+ 15.85759271 19.69595748 15.61030219 10.18647289 18.00632673 12.32974274
+ 18.07105196 13.87860644 18.63541855 17.47121643 15.56240234 11.36455226
+ 10.5991769  11.21343456 10.44551879 11.07494129 12.25709339 17.1298898
+ 15.59716982 10.1255598  10.7197428  19.6727633  15.68100462 12.03293235
+ 12.52325745 17.43825854 11.95429481 15.81358927 19.70019989 18.46828801
+ 12.39847759 14.93769714 16.19955718 18.289809   11.56791395 10.18576202
+ 10.70022144 14.86345111 16.06329462 15.68851437 13.17362409 19.88616154
+ 15.79745219 13.80141173 15.50948219 17.45334431 16.69232893 12.64919558
+ 10.66334834 13.70084198 16.29717507 12.1017401  17.52755554 10.66536481
+ 12.60315099 18.04754564 11.93434283 16.39460881 15.24670309 19.2480797
+ 12.6329677  10.65961091 17.35065963 17.7217803  19.07815853 19.31972069
+ 10.13951573 12.34362086 16.16778357 19.49016321]
+
+    \end{Verbatim}
+
+    Which is an array of random \texttt{(float)} numbers from 10 to 20
+distributed uniformly in between.
+
+    When you are dealing with a random number generator (rng), it is often
+helpful to set the seed so that you can reproduce your result.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{randlist1} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{10} \PY{o}{+} \PY{l+m+mi}{10}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{randlist2} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{10} \PY{o}{+} \PY{l+m+mi}{10}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{randlist1}\PY{o}{\PYZhy{}}\PY{n}{randlist2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0.]
+
+    \end{Verbatim}
+
+    \hypertarget{matrices}{%
+\subsection{2. Matrices}\label{matrices}}
+
+    To create a matrix, use \texttt{np.matrix}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{mat1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{mat1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1 2 3]
+ [4 5 6]
+ [6 7 8]]
+
+    \end{Verbatim}
+
+    All matrix objects have \texttt{.I} \textbf{attribute}, which calculates
+the inverse (if it exists):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{mat1}\PY{o}{.}\PY{n}{I}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 1.7156570e+15 -4.2891425e+15  2.5734855e+15]
+ [-3.4313140e+15  8.5782850e+15 -5.1469710e+15]
+ [ 1.7156570e+15 -4.2891425e+15  2.5734855e+15]]
+
+    \end{Verbatim}
+
+    You can also view the \texttt{.T} \textbf{attribute}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{mat1}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1 4 6]
+ [2 5 7]
+ [3 6 8]]
+
+    \end{Verbatim}
+
+    The \texttt{*} operator carries out matrix multiplication instead of
+multiplying it element-wise:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{mat2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{17}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{mat1}\PY{o}{*}\PY{n}{mat2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} matrix([[ 78,  84,  90],
+                 [186, 201, 216],
+                 [258, 279, 300]])
+\end{Verbatim}
+            
+    NumPy has built in functions to create commonly used matrices:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{c+c1}{\PYZsh{}Identity Matrix}
+          
+          \PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}106}]:} array([[1., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+                 [0., 1., 0., 0., 0., 0., 0., 0., 0., 0.],
+                 [0., 0., 1., 0., 0., 0., 0., 0., 0., 0.],
+                 [0., 0., 0., 1., 0., 0., 0., 0., 0., 0.],
+                 [0., 0., 0., 0., 1., 0., 0., 0., 0., 0.],
+                 [0., 0., 0., 0., 0., 1., 0., 0., 0., 0.],
+                 [0., 0., 0., 0., 0., 0., 1., 0., 0., 0.],
+                 [0., 0., 0., 0., 0., 0., 0., 1., 0., 0.],
+                 [0., 0., 0., 0., 0., 0., 0., 0., 1., 0.],
+                 [0., 0., 0., 0., 0., 0., 0., 0., 0., 1.]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{c+c1}{\PYZsh{}Matrix of Ones}
+          
+          \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}107}]:} array([[1., 1., 1.],
+                 [1., 1., 1.],
+                 [1., 1., 1.]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:} array([[1., 1., 1.],
+                 [1., 1., 1.]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}109}]:} array([[1., 1.],
+                 [1., 1.],
+                 [1., 1.]])
+\end{Verbatim}
+            
+    \hypertarget{summary-statistics}{%
+\subsection{3. Summary Statistics}\label{summary-statistics}}
+
+    First, let's start off with a seed for our rng:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{rng} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}
+\end{Verbatim}
+
+
+    Then let's create a vector of 10000 observations from a normal
+distribution with mean = 10 and standard deviation = 5.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{P} \PY{o}{=} \PY{n}{rng}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{)}
+\end{Verbatim}
+
+
+    Let's view the first 10 elements of P:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{P}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} array([18.45262852,  7.67031315, 10.16410082, 12.03758141,  6.05538486,
+                10.01032786,  9.99554807,  1.22637847, 15.08829003, 13.00249258])
+\end{Verbatim}
+            
+    Let's get the mean of this population. Recall the mean is simply the
+average: \[ \frac{\sum_{i=0}^{N-1} X_i}{N} \]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{P}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}\PYZsh{} Note the different ways of summing a vector in numpy:}
+          \PY{c+c1}{\PYZsh{}\PYZsh{} \PYZhy{} np.add.reduce(sample)}
+          \PY{c+c1}{\PYZsh{}\PYZsh{} \PYZhy{} np.sum(sample)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} Can also determine the mean from the .mean() method}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{mean}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+9.95463191307012
+
+    \end{Verbatim}
+
+    Now, let's get the median and compare the results:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{P}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} To do this manually, just sort the vector and pick the middle element. }
+          \PY{c+c1}{\PYZsh{}\PYZsh{} If the array length is even, take the average of the middle two elements, }
+          \PY{c+c1}{\PYZsh{}\PYZsh{} otherwise just take the middle element:}
+          
+          \PY{c+c1}{\PYZsh{} sorted\PYZus{}sample = np.sort(sample)}
+          \PY{c+c1}{\PYZsh{} if len(sorted\PYZus{}sample) \PYZpc{} 2==0:}
+          \PY{c+c1}{\PYZsh{}     print((sorted\PYZus{}sample[len(sorted\PYZus{}sample)//2\PYZhy{}1]}
+          \PY{c+c1}{\PYZsh{}    + sorted\PYZus{}sample[len(sorted\PYZus{}sample)//2])/2)}
+          \PY{c+c1}{\PYZsh{} else:}
+          \PY{c+c1}{\PYZsh{}     print((sorted\PYZus{}sample[len//2])}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:} 9.964381471455374
+\end{Verbatim}
+            
+    We now look at the variance and standard deviation, which represents the
+spread of the data from the mean:
+
+    The calculation of the variance, is given by:
+\[Var(Population) = \frac{1}{N} \sum_{i=0}^{N-1} (X_i - \mu)^2\] Where N
+is the length of the population vector and \(\mu\) is the mean of the
+population.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{pop\PYZus{}var} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{P}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{pop\PYZus{}var}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} We can also get the variance manually by doing: }
+         \PY{c+c1}{\PYZsh{} pop\PYZus{}var = np.sum((P\PYZhy{}P.mean())**2)/N}
+         \PY{c+c1}{\PYZsh{} This is just doing a sum of the element\PYZhy{}wise squared }
+         \PY{c+c1}{\PYZsh{}errors divided by the length of the vector.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+24.614376450825333
+
+    \end{Verbatim}
+
+    The standard deviation is defined as the square-root of the variance:
+\[ \sigma(Population) = \sqrt{Var(X)}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{pop\PYZus{}sd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{pop\PYZus{}var}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{pop\PYZus{}sd}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+4.961287781496386
+
+    \end{Verbatim}
+
+    Thus if we check the standard deviation of the population, the answer
+looks very close to 5! This is exactly the true standard deviation of
+the population.
+
+    We talked about the population mean and variance. Now, let's talk about
+the mean and variance of the sample.
+
+    Let's sample 100 observations from this population vector, P:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{sample} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{P}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{sample}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[18.25349846 11.97787858 10.99136953 18.53291841  7.28488333  3.02145545
+ 13.61480915 18.29212392  1.16888876 12.32285265]
+
+    \end{Verbatim}
+
+    In order to get the sample mean, we can just take the average of the
+sample. Let's use \(\hat{\mu}\) to represent the ** sample mean**:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{n}{sample\PYZus{}mean} \PY{o}{=} \PY{n}{sample}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{sample\PYZus{}mean}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{} You can also do:}
+          \PY{c+c1}{\PYZsh{}\PYZsh{} sample\PYZus{}mean = np.sum(sample)/len(sample)}
+          \PY{c+c1}{\PYZsh{}\PYZsh{} print(sample\PYZus{}mean)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10.319664970434495
+
+    \end{Verbatim}
+
+    Then for the sample variance, we use this formula:
+\[Var(Sample) = \frac{1}{n-1} \sum_{i=0}^{n-1} (X_i - \hat{\mu})^2\]
+
+Where n is the size of the sample and \(\hat{\mu}\) represents the
+sample mean.
+
+The intuition behind the difference in the sum being scaled by
+\(\frac{1}{n-1}\) instead of \(\frac{1}{n}\) is due to the fact that the
+act of calculating the mean from the sample data introduces a form of
+deviation from the true mean. I.e:
+
+\[ \mu = \hat{\mu} + \epsilon \quad \quad where \; \epsilon \geq 0\]
+
+If we look closer at the calculation of the population variance, we then
+see:
+
+\[ \sum_{i=0}^{n-1} (X_i - \mu)^2 = \sum_{i=0}^{n-1} (X_i - \hat{\mu} + \hat{\mu} - \mu)^2 \]
+
+This gives:
+
+\[ \underbrace{\sum_{i=0}^{n-1} (X_i - \hat{\mu} + \hat{\mu} - \mu)^2}_\text{Population Variance} = \underbrace{\sum_{i=0}^{n-1} (X_i - \hat{\mu})^2}_\text{Sample Variance} + \underbrace{\sum_{i=0}^{n-1}(\hat{\mu} - \mu)^2}_\text{this is $\geq$ 0} + 2\sum_{i=0}^{n-1}(X_i - \hat{\mu})(\hat{\mu}-\mu)\]
+
+Now, we know that \(\hat{\mu} = \frac{1}{n}\sum_{i=0}^{n-1}X_i\) by
+definition. So \(\sum_{i=0}^{n-1}(X_i - \hat{\mu})(\hat{\mu}-\mu)\) is
+necessarily equal to \(0\). This means that we have:
+
+\[ \underbrace{\sum_{i=0}^{n-1} (X_i - \hat{\mu} + \hat{\mu} - \mu)^2}_\text{Population Variance} = \underbrace{\sum_{i=0}^{n-1} (X_i - \hat{\mu})^2}_\text{Sample Variance} + \underbrace{\sum_{i=0}^{n-1}(\hat{\mu} - \mu)^2}_\text{this is $\geq$ 0}\]
+
+Which implies:
+
+\[ Variance(Population) \geq Variance(Sample) \]
+
+Thus, the sample variance that is calculated is less than would be
+expected, which is why we need to scale it by a smaller factor of
+\(\frac{1}{n-1}\) instead of \(\frac{1}{n}\).
+
+    Let's now talk about percentiles:
+
+    The \(n\)-th percentile of a vector determines the value at which the
+probability of getting an observations below it is \(n\%\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{P}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-4.528680954058658
+
+    \end{Verbatim}
+
+    This means that the probability of the viewing an observation of less
+than \(-4.53\) is \(0.25\%\)
+
+    \hypertarget{multivariate-distributions}{%
+\subsection{4. Multivariate
+Distributions}\label{multivariate-distributions}}
+
+    When we deal with more than one variables, sometimes we can see that
+they can be related in some way or another.
+
+    Let's generate two variables that we are going to use to represent
+height and weight of the population in Singapore. Let's assume that they
+are unrelated, and height has a mean of 155 cm with a standard deviation
+of 5 cm and weight has a mean of 65 kg with standard deviation of 5 kg.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{155}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{n}{height} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{weight} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    Let's plot the height and the weight on a scatter plot:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}141}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{height}\PY{p}{,}\PY{n}{weight}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}141}]:} <matplotlib.collections.PathCollection at 0x10fcf9898>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    This provides some empirical evidence that height and weight are not
+correlated.
+
+    We can even place a value to measure the related-ness of the two
+variables by considering a quantity known as the covariance. This is
+given by:
+\[ Cov(X,Y) = \frac{1}{n} \sum_{i=0}^{n}(X-\mu_{x})(Y-\mu_{y})\] Where
+\(\mu_{x}\) and \(\mu_{y}\) are the true means of the populations of the
+\(X\) and \(Y\) random variables respectively.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}145}]:} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{height}\PY{p}{,}\PY{n}{weight}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}145}]:} array([[ 5.41215244, -0.06906557],
+                 [-0.06906557,  5.32692431]])
+\end{Verbatim}
+            
+    The above is a matrix that tells us the covariance between the height
+and weight variables as well as their corresponding variances. This is
+known as a covariance matrix, \(\Sigma\) and it has the following form:
+\[ \Sigma_{ij} = Cov(X_i,X_j)\] Where \(X_i\) and \(X_j\) are the
+different variables in question.
+
+    The sign of the covariance determines how the variables are related. A
+positive covariance indicates that there is positive correlation and
+vice versa.
+
+    Sometimes, we can have a situation where the magnitude of a certain
+variable far outweighs the other. (Say, you are trying to find out
+whether a planet moves at a certain angle from the Earth's horizon based
+on the planet's mass!!!). This means that when we calculate covariance
+we need to scale the variables in some way such that they can be
+compared in a sensible way. This leads to the idea of correlation, which
+is the covariance scaled by the product of the standard deviations:
+
+\[ Corr(X,Y) = \frac{1}{n} \frac{\sum_{i=0}^{n}(X-\mu_{x})(Y-\mu_{y})}{\sqrt{Var_x Var_y}}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}146}]:} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{height}\PY{p}{,}\PY{n}{weight}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}146}]:} array([[ 1.        , -0.01286288],
+                 [-0.01286288,  1.        ]])
+\end{Verbatim}
+            
+    The values of the correlation coefficient will always be between 0 and
+1. With 0 indicating no correlation and 1 indicating perfect
+correlation.
+
+    In the example we see above, we surmise that height and weight variables
+are not correlated from the plot; and the correlation coefficient
+supports this statement.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
